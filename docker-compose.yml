@@ -25,6 +25,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/datawarehouse
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
+      - SWAGGER_ACTIVATION=false
     networks:
       - network-data
     depends_on:

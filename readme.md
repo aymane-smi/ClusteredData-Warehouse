@@ -22,6 +22,12 @@ all the project layout(service,repository and model) are generated automaticaly 
 | -----|-------|-------|
 | `POST`| {id : `string?`, fromCurrency: `String`, toCurrency: `String`, amount: `double` }[] | {id : `string?`, fromCurrency: `String`, toCurrency: `String`, amount: `double`, deal_timestamp: `LocalDateTime`}[]|
 
+### using swagger
+
+you can use swagger for api documentation by visiting `/swagger-ui/index.html`
+
+you can desactivate swagger in case you are deploing to the prof be changing `SWAGGER_ACTIVATION` in docker-compose to false
+
 
 ## Deploymenet
 

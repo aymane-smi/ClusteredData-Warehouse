@@ -1,3 +1,6 @@
+springdoc:
+  swagger-ui:
+    enabled: ${SWAGGER_ACTIVATION}
 spring:
   application:
     name: clustered_data
@@ -5,8 +8,10 @@ spring:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
+    # url: jdbc:postgresql://localhost:5432/datawarehouse
+    # username: postgres
+    # password: aymane@123
     driver-class-name: org.postgresql.Driver
-
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
