@@ -7,7 +7,7 @@ services:
     ports:
       - "5433:5432"
     environment:
-      POSTGRES_DB: "datawharehouse"
+      POSTGRES_DB: "datawarehouse"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
     volumes:
@@ -22,7 +22,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/datawharehouse
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5433/datawarehouse
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
     networks:
