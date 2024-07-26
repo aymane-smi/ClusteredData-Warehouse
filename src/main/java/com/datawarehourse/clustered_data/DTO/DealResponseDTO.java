@@ -12,6 +12,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DealResponseDTO extends DealDTO{
-    private long id;
     private LocalDateTime dealTime;
 }

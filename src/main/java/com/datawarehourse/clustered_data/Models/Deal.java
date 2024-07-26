@@ -23,13 +23,13 @@ public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "from_currency")
+    @Column(name = "from_currency", nullable = false)
     private String fromCurrency;
-    @Column(name = "to_currency")
+    @Column(name = "to_currency", nullable = false)
     private String toCurrency;
-    @Column(name = "deal_timestamp")
+    @Column(name = "deal_timestamp", nullable = false)
     private LocalDateTime dealTime;
-    @Column(name = "deal_amount")
+    @Column(name = "deal_amount", nullable = false)
     private long amount;
 
 }
