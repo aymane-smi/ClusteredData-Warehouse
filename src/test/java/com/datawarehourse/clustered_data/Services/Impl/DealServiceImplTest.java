@@ -6,7 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,6 +20,7 @@ import org.modelmapper.ModelMapper;
 
 import com.datawarehourse.clustered_data.DTO.DealDTO;
 import com.datawarehourse.clustered_data.DTO.DealResponseDTO;
+import com.datawarehourse.clustered_data.Exceptions.CurrencyPatternException;
 import com.datawarehourse.clustered_data.Models.Deal;
 import com.datawarehourse.clustered_data.Repositories.DealRepository;
 
@@ -44,6 +51,7 @@ public class DealServiceImplTest {
                    .fromCurrency("mad")
                    .toCurrency("mad")
                    .amount(11).build();
+
         dealResponseDTO = DealResponseDTO.builder()
                    .id("deal-id")
                    .fromCurrency("mad")
@@ -63,7 +71,32 @@ public class DealServiceImplTest {
     }
 
     @Test
-    void testCreateBatch() {
+    @DisplayName("testing the case where the currency is not valide")
+    void testCurrencyValidation(){
+        dealDTO.setFromCurrency("abc1");
+        CurrencyPatternException exception1 = assertThrows(CurrencyPatternException.class, ()->{
+            dealService.create(dealDTO);
+        });
+        dealDTO.setFromCurrency("abc");
+        dealDTO.setToCurrency("abc1");
+        CurrencyPatternException exception2 = assertThrows(CurrencyPatternException.class, ()->{
+            dealService.create(dealDTO);
+        });
+        assertEquals(exception1.getMessage(), "the from currency must contain only 3 letters");
+        assertEquals(exception2.getMessage(), "the to currency must contain only 3 letters");
+    }
 
+    @Test
+    @DisplayName("testing the case of batch saving")
+    void testCreateBatch() {
+        ArrayList<DealDTO> dealsDTO = new ArrayList<>();
+        given(dealRepository.existsById("deal-1")).willReturn(false);
+        given(modelMapper.map(dealDTO, Deal.class)).willReturn(deal);
+        given(dealRepository.save(deal)).willReturn(deal);
+        given(modelMapper.map(deal, DealResponseDTO.class)).willReturn(dealResponseDTO);
+        given(dealService.create(dealDTO)).willReturn(dealResponseDTO);
+        dealsDTO.add(dealDTO);
+        List<DealResponseDTO> result = dealService.createBatch(dealsDTO);
+        assertEquals(result.size(), 1);
     }
 }
