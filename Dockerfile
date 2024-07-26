@@ -1,14 +1,21 @@
-FROM maven:3.9.8-amazoncorretto-17 AS build
-WORKDIR  /app
-COPY . .
-RUN mvn clean install
-
-FROM eclipse-temurin:17-jdk-focal
+FROM maven:3.8.1-openjdk-17 AS build
 
 WORKDIR /app
 
-COPY --from=BUILD /app/target/*.jar app.jar
+COPY pom.xml .
 
-EXPOSE 8080
+RUN mvn dependency:go-offline
 
-CMD ["java", "-jar", "/app/app.jar"]
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-ea-17-jdk-slim AS run
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar /app/app.jar
+
+EXPOSE 8000
+
+CMD ["java", "-jar", "app.jar"]
