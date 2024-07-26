@@ -9,6 +9,7 @@ import com.datawarehourse.clustered_data.DTO.DealDTO;
 import com.datawarehourse.clustered_data.DTO.DealResponseDTO;
 import com.datawarehourse.clustered_data.Services.DealService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -24,12 +25,12 @@ public class DealController {
     public DealService dealService;
 
     @PostMapping
-    public ResponseEntity<DealResponseDTO> createDeal(@RequestBody DealDTO dealDTO) {
+    public ResponseEntity<DealResponseDTO> createDeal(@Valid @RequestBody DealDTO dealDTO) {
         return new ResponseEntity<>(dealService.create(dealDTO), HttpStatus.CREATED);
     }
 
     @PostMapping("/batchSave")
-    public ResponseEntity<ArrayList<DealResponseDTO>>batchDealCreation(@RequestBody ArrayList<DealDTO> dealsDTO) {
+    public ResponseEntity<ArrayList<DealResponseDTO>>batchDealCreation(@Valid @RequestBody ArrayList<DealDTO> dealsDTO) {
         return new ResponseEntity<>(dealService.createBatch(dealsDTO), HttpStatus.CREATED);
     }
     
