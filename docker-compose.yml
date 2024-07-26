@@ -1,0 +1,38 @@
+version: "3.1"
+services:
+  db:
+    container_name: db
+    image: "postgres:15"
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: "datawharehouse"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - network-data
+  spring-app:
+    container_name: datawarehouse
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/datawharehouse
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    networks:
+      - network-data
+    depends_on:
+      - db
+networks:
+  network-data:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
