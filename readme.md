@@ -29,3 +29,7 @@ use only one command `makefile run-project` and voila! the project is runned
 
 - if you want to run it without docker you can replace the config of the application.yml with your own config
 - for better docker optimization i used the multstaging in order to reduce the size of the project image
+
+## project managment
+
+for managing the project i used github issue you can see all the closed ticket [here](https://github.com/aymane-smi/ClusteredData-Warehouse/issues?q=is%3Aissue+is%3Aclosed) and the still open one [here](https://github.com/aymane-smi/ClusteredData-Warehouse/issues)
