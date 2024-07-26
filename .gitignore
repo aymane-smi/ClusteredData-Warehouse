@@ -4,6 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+**/src/main/resources/application.properties
+
+### DS_Store###
+.DS_Store
+.DS_Store?
+
 ### STS ###
 .apt_generated
 .classpath
