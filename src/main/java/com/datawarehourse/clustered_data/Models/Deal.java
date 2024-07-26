@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,8 +19,7 @@ import lombok.AllArgsConstructor;
 @Builder
 public class Deal {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
     @Column(name = "from_currency", nullable = false)
     private String fromCurrency;
     @Column(name = "to_currency", nullable = false)

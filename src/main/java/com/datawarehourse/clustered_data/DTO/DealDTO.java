@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,10 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 public class DealDTO {
     //the client can send request with or without the id
     //if the id existe in the payload then the handling will be changed in the service layer
-    private long id = 0;
+    private String id = "";
     @NotBlank(message = "from currency is required")
     @Size(min = 3, max=3, message = "fromCurrency must contain 3 characters")
     protected String fromCurrency;

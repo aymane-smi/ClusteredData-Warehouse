@@ -10,6 +10,9 @@ import com.datawarehourse.clustered_data.DTO.DealResponseDTO;
 import com.datawarehourse.clustered_data.Services.DealService;
 
 import lombok.AllArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -20,15 +23,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class DealController {
     public DealService dealService;
 
-    @PostMapping("/")
-    public DealResponseDTO createDeal(@RequestBody DealDTO dealDTO) {
-        return null;
+    @PostMapping
+    public ResponseEntity<DealResponseDTO> createDeal(@RequestBody DealDTO dealDTO) {
+        return new ResponseEntity<>(dealService.create(dealDTO), HttpStatus.CREATED);
     }
 
     @PostMapping("/batchSave")
-    public String batchDealCreation(@RequestBody ArrayList<DealDTO> dealsDTO) {
-        return null;
+    public ResponseEntity<ArrayList<DealResponseDTO>>batchDealCreation(@RequestBody ArrayList<DealDTO> dealsDTO) {
+        return new ResponseEntity<>(dealService.createBatch(dealsDTO), HttpStatus.CREATED);
     }
-    
     
 }

@@ -4,4 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.datawarehourse.clustered_data.Models.Deal;
 
 @Repository
-public interface DealRepository extends JpaRepository<Deal, Long>{}
+public interface DealRepository extends JpaRepository<Deal, String>{}
